@@ -29,11 +29,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { storeToRefs } from "pinia";
+import { useSettingsStore } from "./store/settingsStore";
 import SettingsModal from "./components/Settings/SettingsModal.vue";
 import TimerMain from "./components/Timer/TimerMain.vue";
 
 const isModalOpen = ref(false);
+const settingsStore = useSettingsStore();
+const { fontTheme } = storeToRefs(settingsStore);
 
 const handleSettingsCogClick = () => {
   isModalOpen.value = true;
@@ -42,4 +46,11 @@ const handleSettingsCogClick = () => {
 const closeModal = () => {
   isModalOpen.value = false;
 };
+
+watch(
+  () => fontTheme.value,
+  (newVal) => {
+    document.body.style.fontFamily = `var(--${newVal})`;
+  }
+);
 </script>

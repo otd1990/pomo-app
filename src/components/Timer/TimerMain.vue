@@ -3,7 +3,7 @@
     <TimerNavigation :colour="colourUsed" @navChanged="handleNavChanged" />
     <section class="timer-main__outer">
       <div class="timer-main__inner">
-        <section class="timer-main__time kumbh-sans-500">
+        <section :class="`timer-main__time ${fontTheme.value}-500`">
           <TimerRing
             :progress="percentageFinished"
             :size="440"
@@ -15,7 +15,7 @@
               <div class="timer-main__timer-ring-content">
                 <span>{{ timerValue }}</span>
                 <button
-                  class="timer-main__btn kumbh-sans-700"
+                  :class="`timer-main__btn ${fontTheme}-700`"
                   @click="handleTimer"
                 >
                   {{ timerText }}
@@ -40,7 +40,7 @@ import TimerRing from "./TimerRing.vue";
 const store = useTimerStore();
 const settings = useSettingsStore();
 const { times } = storeToRefs(store);
-const { colourUsed } = storeToRefs(settings);
+const { colourUsed, fontTheme } = storeToRefs(settings);
 const timerText = ref("start");
 const timerActive = ref(false);
 const selectedTimeOption = ref("pomodoro");

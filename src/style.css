@@ -1,28 +1,22 @@
-.space-mono-regular {
+:root {
+  --kumbh: "Kumbh Sans", sans-serif;
+  --space: "Space Mono", monospace;
+  --roboto: "Roboto Slab", serif;
+}
+
+.space-500 {
   font-family: "Space Mono", monospace;
   font-weight: 400;
   font-style: normal;
 }
 
-.space-mono-bold {
+.space-700 {
   font-family: "Space Mono", monospace;
   font-weight: 700;
   font-style: normal;
 }
 
-.space-mono-regular-italic {
-  font-family: "Space Mono", monospace;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.space-mono-bold-italic {
-  font-family: "Space Mono", monospace;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.kumbh-sans-500 {
+.kumbh-500 {
   font-family: "Kumbh Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
@@ -30,7 +24,7 @@
   font-variation-settings: "YOPQ" 300;
 }
 
-.kumbh-sans-700 {
+.kumbh-700 {
   font-family: "Kumbh Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
@@ -38,15 +32,22 @@
   font-variation-settings: "YOPQ" 300;
 }
 
-.roboto-slab-500 {
+.roboto-500 {
   font-family: "Roboto Slab", serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
 }
 
+.roboto-700 {
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
 body {
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: var(--kumbh);
   margin: 0;
   display: flex;
   place-items: center;
