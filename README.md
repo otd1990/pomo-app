@@ -8,6 +8,5 @@ Pinia used for state management
 
 ## Todo
 
-- Font theme throughout app
 - Customisable times
 - General tidy up
