@@ -53,6 +53,11 @@ function setProgress(percent) {
 }
 
 function circleSetup() {
+  const minSize = props.strokeWidth * 2; // Minimum size based on stroke width
+
+  // Ensure the size doesn't fall below the minimum
+  props.size = Math.max(props.size, minSize);
+
   radius.value = props.size / 2 - props.strokeWidth / 2;
   circumference.value = 2 * Math.PI * radius.value;
   // Set initial progress
@@ -71,8 +76,7 @@ watch(
 
 <style>
 .progress-ring {
-  box-shadow: -25px -25px 100px 0 rgba(39, 44, 73, 1),
-    25px 0px 100px 0 rgba(39, 44, 73, 1);
+  box-shadow: 0 10px 25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 100%;
   transform: rotate(-90deg);
   padding: 1rem;

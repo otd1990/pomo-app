@@ -6,7 +6,7 @@
         <section :class="`timer-main__time ${fontTheme.value}-500`">
           <TimerRing
             :progress="percentageFinished"
-            :size="440"
+            :size="ringSize"
             :strokeWidth="10"
             :color="colourUsed"
             class="timer-main__timer-ring"
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useTimerStore } from "../../store/timesStore.js";
 import { useSettingsStore } from "../../store/settingsStore";
@@ -46,6 +46,9 @@ const timerActive = ref(false);
 const selectedTimeOption = ref("pomodoro");
 const timerValue = ref(`${times.value[selectedTimeOption.value]}:00`);
 const percentageFinished = ref("0");
+
+const ringSize = ref(440);
+
 let timerTimer = undefined;
 let timeLeft = times.value.pomodoro * 60;
 
@@ -102,9 +105,41 @@ const handleNavChanged = (timerOption) => {
   timerActive.value = false;
   timeLeft = times.value[newOption] * 60;
 };
+
+const handleResize = () => {
+  const mobile = window.matchMedia("(max-width: 600px)").matches;
+  const tablet = window.matchMedia("(max-width: 769px)").matches;
+  const desktop = window.matchMedia("(min-width: 1024px)").matches;
+  const xtraSmall = window.matchMedia("(max-width: 401px)").matches;
+
+  console.log(mobile, tablet, desktop);
+
+  if (xtraSmall) {
+    ringSize.value = 240;
+    return;
+  }
+
+  if (tablet && !desktop && !mobile) {
+    ringSize.value = 410;
+  } else if (mobile && !desktop && tablet) {
+    ringSize.value = 300;
+  } else {
+    ringSize.value = 440;
+  }
+};
+
+onMounted(() => {
+  handleResize();
+  window.addEventListener("resize", handleResize);
+});
 </script>
 
 <style>
+.timer-main__outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .timer-main__inner {
   margin: 3rem auto;
   color: #d7e0ff;
@@ -114,6 +149,14 @@ const handleNavChanged = (timerOption) => {
 
 .timer-main__time {
   position: relative;
+  border-radius: 100%;
+  box-shadow: -25px -25px 100px 0 rgba(39, 44, 73, 1),
+    25px 0px 100px 0 rgba(39, 44, 73, 1);
+
+  height: 472px;
+  width: 472px;
+  border-radius: 100%;
+  padding: 2rem;
 }
 
 .timer-main__timer-ring-content {
@@ -134,8 +177,56 @@ const handleNavChanged = (timerOption) => {
   font-size: 1.1rem;
   letter-spacing: 1rem;
   text-transform: uppercase;
-  width: fit-content;
+  width: 100%;
   margin: 0 auto;
   align-self: baseline;
+}
+
+@media (max-width: 769px) {
+  .timer-main__time {
+    height: 430px;
+    width: 430px;
+    box-shadow: none;
+  }
+
+  .timer-main__time span {
+    font-size: 5.25rem;
+  }
+
+  .timer-main__btn {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .timer-main__time {
+    height: 340px;
+    width: 340px;
+    padding: 0.8rem;
+  }
+
+  .timer-main__time span {
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 401px) {
+  .timer-main__time {
+    height: 290px;
+    width: 290px;
+    padding: 0.8rem;
+  }
+
+  .timer-main__time span {
+    font-size: 3.5rem;
+    max-width: 75%;
+    margin: 0 auto;
+  }
+
+  .timer-main__btn {
+    font-size: 0.9rem;
+    width: 50%;
+    margin: 0 auto;
+  }
 }
 </style>

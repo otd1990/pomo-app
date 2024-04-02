@@ -47,7 +47,7 @@ const activeTimer = (timer) => {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  min-width: 375px;
+  max-width: 375px;
   margin: 0 auto;
   padding: 0.5rem;
   background-color: #161932;
@@ -55,7 +55,7 @@ const activeTimer = (timer) => {
 }
 
 .timer-navigation__item {
-  min-width: 120px;
+  max-width: 120px;
   text-align: center;
   padding: 0.75rem 1rem;
   color: #d7e0ff;
@@ -92,6 +92,17 @@ const activeTimer = (timer) => {
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .timer-navigation {
+    max-width: 100%;
+    padding: 0 0.25rem;
+  }
+
+  .timer-navigation__item {
+    padding: 0.75rem 0.5rem;
   }
 }
 </style>

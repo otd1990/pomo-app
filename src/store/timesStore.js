@@ -12,6 +12,8 @@ export const useTimerStore = defineStore("timer", () => {
 
   function setTimes(timerName, time) {
     times[timerName] = parseInt(time);
+
+    console.log("TImes ", times);
   }
 
   function getTime(timerName) {
